@@ -3,6 +3,9 @@ const db = require("../data/dbconfig");
 module.exports = {
   search,
   searchById,
+  getModel,
+  getYears,
+  getMake
 };
 
 function search(orderBy, page, where) {
@@ -17,4 +20,16 @@ function search(orderBy, page, where) {
 
 function searchById(id) {
   return db("epa_vehicles_all").select().where({ id }).first();
+}
+
+function getModel() {
+    return db("epa_vehicles_all").distinct("model");
+}
+
+function getMake() {
+    return db("epa_vehicles_all").distinct("make");
+}
+
+function getYears() {
+    return db("epa_vehicles_all").distinct("year");
 }
