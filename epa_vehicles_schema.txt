@@ -1,0 +1,90 @@
+                                                          Table "public.epa_vehicles_all"
+     Column      |       Type        | Collation | Nullable |                   Default                    | Storage  | Stats target | Description 
+-----------------+-------------------+-----------+----------+----------------------------------------------+----------+--------------+-------------
+ barrels08       | real              |           |          |                                              | plain    |              | 
+ barrelsa08      | real              |           |          |                                              | plain    |              | 
+ charge120       | real              |           |          |                                              | plain    |              | 
+ charge240       | real              |           |          |                                              | plain    |              | 
+ city08          | real              |           |          |                                              | plain    |              | 
+ city08u         | real              |           |          |                                              | plain    |              | 
+ citya08         | real              |           |          |                                              | plain    |              | 
+ citya08u        | real              |           |          |                                              | plain    |              | 
+ citycd          | real              |           |          |                                              | plain    |              | 
+ citye           | real              |           |          |                                              | plain    |              | 
+ cityuf          | real              |           |          |                                              | plain    |              | 
+ co2             | real              |           |          |                                              | plain    |              | 
+ co2a            | real              |           |          |                                              | plain    |              | 
+ co2tailpipeagpm | real              |           |          |                                              | plain    |              | 
+ co2tailpipegpm  | real              |           |          |                                              | plain    |              | 
+ comb08          | real              |           |          |                                              | plain    |              | 
+ comb08u         | real              |           |          |                                              | plain    |              | 
+ comba08         | real              |           |          |                                              | plain    |              | 
+ comba08u        | real              |           |          |                                              | plain    |              | 
+ combe           | real              |           |          |                                              | plain    |              | 
+ combinedcd      | real              |           |          |                                              | plain    |              | 
+ combineduf      | real              |           |          |                                              | plain    |              | 
+ cylinders       | real              |           |          |                                              | plain    |              | 
+ displ           | real              |           |          |                                              | plain    |              | 
+ drive           | character varying |           |          |                                              | extended |              | 
+ engid           | real              |           |          |                                              | plain    |              | 
+ eng_dscr        | character varying |           |          |                                              | extended |              | 
+ fescore         | real              |           |          |                                              | plain    |              | 
+ fuelcost08      | real              |           |          |                                              | plain    |              | 
+ fuelcosta08     | real              |           |          |                                              | plain    |              | 
+ fueltype        | character varying |           |          |                                              | extended |              | 
+ fueltype1       | character varying |           |          |                                              | extended |              | 
+ ghgscore        | real              |           |          |                                              | plain    |              | 
+ ghgscorea       | real              |           |          |                                              | plain    |              | 
+ highway08       | real              |           |          |                                              | plain    |              | 
+ highway08u      | real              |           |          |                                              | plain    |              | 
+ highwaya08      | real              |           |          |                                              | plain    |              | 
+ highwaya08u     | real              |           |          |                                              | plain    |              | 
+ highwaycd       | real              |           |          |                                              | plain    |              | 
+ highwaye        | real              |           |          |                                              | plain    |              | 
+ highwayuf       | real              |           |          |                                              | plain    |              | 
+ hlv             | real              |           |          |                                              | plain    |              | 
+ hpv             | real              |           |          |                                              | plain    |              | 
+ id              | integer           |           | not null | nextval('epa_vehicles_all_id_seq'::regclass) | plain    |              | 
+ lv2             | real              |           |          |                                              | plain    |              | 
+ lv4             | real              |           |          |                                              | plain    |              | 
+ make            | character varying |           |          |                                              | extended |              | 
+ model           | character varying |           |          |                                              | extended |              | 
+ mpgdata         | character varying |           |          |                                              | extended |              | 
+ phevblended     | real              |           |          |                                              | plain    |              | 
+ pv2             | real              |           |          |                                              | plain    |              | 
+ pv4             | real              |           |          |                                              | plain    |              | 
+ range           | real              |           |          |                                              | plain    |              | 
+ rangecity       | real              |           |          |                                              | plain    |              | 
+ rangecitya      | real              |           |          |                                              | plain    |              | 
+ rangehwy        | real              |           |          |                                              | plain    |              | 
+ rangehwya       | real              |           |          |                                              | plain    |              | 
+ trany           | character varying |           |          |                                              | extended |              | 
+ ucity           | real              |           |          |                                              | plain    |              | 
+ ucitya          | real              |           |          |                                              | plain    |              | 
+ uhighway        | real              |           |          |                                              | plain    |              | 
+ uhighwaya       | real              |           |          |                                              | plain    |              | 
+ vclass          | character varying |           |          |                                              | extended |              | 
+ year            | real              |           |          |                                              | plain    |              | 
+ yousavespend    | real              |           |          |                                              | plain    |              | 
+ guzzler         | character varying |           |          |                                              | extended |              | 
+ trans_dscr      | character varying |           |          |                                              | extended |              | 
+ tcharger        | character varying |           |          |                                              | extended |              | 
+ scharger        | character varying |           |          |                                              | extended |              | 
+ atvtype         | character varying |           |          |                                              | extended |              | 
+ fueltype2       | character varying |           |          |                                              | extended |              | 
+ rangea          | character varying |           |          |                                              | extended |              | 
+ evmotor         | character varying |           |          |                                              | extended |              | 
+ mfrcode         | character varying |           |          |                                              | extended |              | 
+ c240dscr        | character varying |           |          |                                              | extended |              | 
+ charge240b      | real              |           |          |                                              | plain    |              | 
+ c240bdscr       | character varying |           |          |                                              | extended |              | 
+ createdon       | character varying |           |          |                                              | extended |              | 
+ modifiedon      | character varying |           |          |                                              | extended |              | 
+ startstop       | character varying |           |          |                                              | extended |              | 
+ phevcity        | real              |           |          |                                              | plain    |              | 
+ phevhwy         | real              |           |          |                                              | plain    |              | 
+ phevcomb        | real              |           |          |                                              | plain    |              | 
+Indexes:
+    "epa_vehicles_all_pkey" PRIMARY KEY, btree (id)
+Access method: heap
+
