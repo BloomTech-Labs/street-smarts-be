@@ -6,7 +6,9 @@ const router = express.Router();
 
 //GET /api/cars
 router.get("/", (req, res) => {
-  Cars.search()
+  const page = req.query.page || 1;
+  const orderBy = "year";
+  Cars.search(orderBy, page)
     .then((rows) => {
       res.status(200).json(rows);
     })
