@@ -14,11 +14,7 @@ To get the server running locally:
 ### Express / knex
 
 Express is an easy to http server framework that the team was familiar with.
-
-- Point One
-- Point Two
-- Point Three
-- Point Four
+We used Postgres to deploy our backend database on Heroku. Heroku has great support for Postgres.
 
 ## 2️⃣ Endpoints
 
@@ -28,6 +24,19 @@ Express is an easy to http server framework that the team was familiar with.
 | ------ | --------------- | -------------- | --------------------------------------- |
 | GET    | `/api/cars`     | all cars       | Returns an array of cars, limited to 20 |
 | GET    | `/api/cars/:id` | Car by id      | Returns a car with a specific ID        |
+| GET    | `/api/year`     | Car by year    | Returns a year                          |
+| GET    | `/api/model`    | Car by model   | Returns a car by model                  |
+| GET    | `/api/make`     | Car by make    | Returns the make of the cars            |
+
+#### Query Parameters
+
+The GET `/api/cars` endpoint supports the following query parameters:
+
+| Parameter | Description                                    |
+| --------- | ---------------------------------------------- |
+| `?make=`  | Filters the list of cars by provided brand     |
+| `?model=` | Filters the list of cars by the provided model |
+| `?year=`  | Filters the list of cars by the provided year  |
 
 # Data Model
 
@@ -38,6 +47,12 @@ See `epa_vehicles_schema.txt`.
 `search()` -> Returns all cars
 
 `searchById(id)` -> Returns a single car by ID
+
+`getModel()` -> Returns all car models
+
+`getMake()` -> Returns all car makes
+
+`getYear()` -> Returns all years
 
 ## 3️⃣ Environment Variables
 
