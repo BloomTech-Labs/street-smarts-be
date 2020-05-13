@@ -6,9 +6,19 @@ const router = express.Router();
 
 //GET /api/cars
 router.get("/", (req, res) => {
-  const page = req.query.page || 1;
+  const page = req.query.page || 0;
   const orderBy = "year";
-  Cars.search(orderBy, page)
+  const where = {};
+  if (req.query.make) {
+      where.make = req.query.make;
+  }
+  if (req.query.model) {
+      where.model = req.query.model;
+  }
+  if (req.query.year) {
+      where.year = req.query.year;
+  }
+  Cars.search(orderBy, page, where)
     .then((rows) => {
       res.status(200).json(rows);
     })

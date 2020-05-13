@@ -5,10 +5,11 @@ module.exports = {
   searchById,
 };
 
-function search(orderBy, page) {
+function search(orderBy, page, where) {
   const limit = 10;
   return db("epa_vehicles_all")
     .select()
+    .where(where)
     .orderBy(orderBy)
     .offset(limit * page)
     .limit(limit);
