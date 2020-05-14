@@ -1,5 +1,7 @@
 # API Documentation
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/731a203f8375d97bc6fe/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/street-smarts-be/maintainability)
+
 #### Backend delpoyed at [streesmarts-labs24](https://streetsmarts-labs24.herokuapp.com/) <br>
 
 ## Getting started
