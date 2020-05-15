@@ -56,6 +56,27 @@ The GET `/api/cars` endpoint supports the following query parameters:
 | `?model=` | Filters the list of cars by the provided model |
 | `?year=`  | Filters the list of cars by the provided year  |
 
+The GET `/api/make` endpoint supports the following query parameters:
+
+| Parameter | Description                                     |
+| --------- | ----------------------------------------------- |
+| `?model=` | Filters the list of makes by the provided model |
+| `?year=`  | Filters the list of makes by the provided year  |
+
+The GET `/api/model` endpoint supports the following query parameters:
+
+| Parameter | Description                                     |
+| --------- | ----------------------------------------------- |
+| `?make=`  | Filters the list of models by provided brand    |
+| `?year=`  | Filters the list of models by the provided year |
+
+The GET `/api/year` endpoint supports the following query parameters:
+
+| Parameter | Description                                     |
+| --------- | ----------------------------------------------- |
+| `?make=`  | Filters the list of years by provided brand    |
+| `?model=` | Filters the list of years by the provided model |
+
 # Data Model
 
 See `epa_vehicles_schema.txt`.
