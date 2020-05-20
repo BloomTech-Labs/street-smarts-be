@@ -35,22 +35,19 @@ describe("GET /", function () {
 });
 
 describe("GET /api/model", function () {
-  it("Should return status of 200 for model", async () => {
-    const res = await request(server).get("/api/model");
-    expect(res.status).toBe(200);
+  it("Should return status of 200 for model", (done) => {
+    request(server).get("/api/model").expect(200, done);
   });
 });
 
 describe("GET /api/make", function () {
-  it("Should return status of 200 for make", async () => {
-    const res = await request(server).get("/api/make");
-    expect(res.status).toBe(200);
+  it("Should return status of 200 for make", (done) => {
+    request(server).get("/api/make").expect(200, done);
   });
 });
 
 describe("GET /api/year", function () {
-  it("Should return status of 200", async () => {
-    const res = await request(server).get("/api/year");
-    expect(res.status).toBe(200);
+  it("Should return status of 200 for year", (done) => {
+    request(server).get("/api/year").expect(200, done);
   });
 });
