@@ -10,15 +10,8 @@ server.use(cors());
 
 server.use("/api/cars", carsRouter);
 
-server.get("/api/make", (req, res) => {
-  let where = {};
-  if (req.query.model) {
-    where = { ...where, model: req.query.model };
-  }
-  if (req.query.year) {
-    where = { ...where, year: req.query.year };
-  }
-  Cars.getMake(where)
+server.get("/api/make", getQueryParameters, (req, res) => {
+  Cars.getMake(req.queryParams)
     .then((make) => {
       res.status(200).json(make);
     })
@@ -28,15 +21,8 @@ server.get("/api/make", (req, res) => {
     });
 });
 
-server.get("/api/year", (req, res) => {
-  let where = {};
-  if (req.query.make) {
-    where = { ...where, make: req.query.make };
-  }
-  if (req.query.model) {
-    where = { ...where, model: req.query.model };
-  }
-  Cars.getYears(where)
+server.get("/api/year", getQueryParameters, (req, res) => {
+  Cars.getYears(req.queryParams)
     .then((years) => {
       res.status(200).json(years);
     })
@@ -46,15 +32,8 @@ server.get("/api/year", (req, res) => {
     });
 });
 
-server.get("/api/model", (req, res) => {
-  let where = {};
-  if (req.query.make) {
-    where = { ...where, make: req.query.make };
-  }
-  if (req.query.year) {
-    where = { ...where, year: req.query.year };
-  }
-  Cars.getModel(where)
+server.get("/api/model", getQueryParameters, (req, res) => {
+  Cars.getModel(req.queryParams)
     .then((models) => {
       res.status(200).json(models);
     })
@@ -67,5 +46,15 @@ server.get("/api/model", (req, res) => {
 server.get("/", (req, res) => {
   res.json({ message: "Server up and running" });
 });
+
+function getQueryParameters(req, res, next) {
+  let where = {};
+  if (req.query.make) where.make = req.query.make;
+  if (req.query.model) where.model = req.query.model;
+  if (req.query.year) where.year = req.query.year;
+
+  req.queryParams = where;
+  next();
+}
 
 module.exports = server;
