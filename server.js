@@ -11,7 +11,7 @@ server.use(cors());
 server.use("/api/cars", carsRouter);
 
 server.get("/api/make", (req, res) => {
-  let where = undefined;
+  let where = {};
   if (req.query.model) {
     where = { ...where, model: req.query.model };
   }
@@ -29,7 +29,7 @@ server.get("/api/make", (req, res) => {
 });
 
 server.get("/api/year", (req, res) => {
-  let where = undefined;
+  let where = {};
   if (req.query.make) {
     where = { ...where, make: req.query.make };
   }
@@ -47,7 +47,7 @@ server.get("/api/year", (req, res) => {
 });
 
 server.get("/api/model", (req, res) => {
-  let where = undefined;
+  let where = {};
   if (req.query.make) {
     where = { ...where, make: req.query.make };
   }

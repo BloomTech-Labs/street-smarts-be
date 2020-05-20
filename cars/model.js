@@ -23,25 +23,13 @@ function searchById(id) {
 }
 
 function getModel(where) {
-  if (where) {
-    return db("epa_vehicles_all").distinct("model").where(where);
-  } else {
-    return db("epa_vehicles_all").distinct("model");
-  }
+  return db("epa_vehicles_all").distinct("model").where(where);
 }
 
 function getMake(where) {
-  if (where) {
-    return db("epa_vehicles_all").distinct("make").where(where);
-  } else {
-    return db("epa_vehicles_all").distinct("make");
-  }
+  return db("epa_vehicles_all").distinct("make").where(where);
 }
 
 function getYears(where) {
-  if (where) {
-    return db("epa_vehicles_all").distinct("year").where(where);
-  } else {
-    return db("epa_vehicles_all").distinct("year");
-  }
+  return db("epa_vehicles_all").distinct("year").where(where);
 }
