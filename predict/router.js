@@ -19,62 +19,56 @@ router.post("/carbon_emissions", async (req, res) => {
     res.status(400).json({ message: "maximum number of car ids is 10" });
     return;
   }
-  const ids = req.body;
-
-  const carQueries = [];
-  for (let id of ids) {
-    const carQuery = Cars.searchById(id)
-      .then((car) => {
-        if (car) {
-          return { ok: car };
-        } else {
-          return { err: { error: "Could not find car with id", id } };
-        }
-      })
-      .catch((err) => {
-        return { err: { id, error: err } };
-      });
-    carQueries.push(carQuery);
-  }
-
-  const predictionQueries = [];
-  for (let query of carQueries) {
-    const carRes = await query;
-    if (carRes.ok) {
-      const car = carRes.ok;
-      const predictionQuery = axios
-        .post(
-          `${API}/carbon_emissions2?make=${car.make}&model=${car.model}&year=${car.year}`
-        )
-        .then((carbon_emissions_prediction) => {
-          return {
-            id: car.id,
-            make: car.make,
-            model: car.model,
-            year: car.year,
-            predicted_carbon_emissions:
-              carbon_emissions_prediction.data.predicted_co2_sql,
-          };
-        })
-        .catch((err) => {
-          return { id: car.id, message: "Failed to get prediction" };
-        });
-      predictionQueries.push(predictionQuery);
-    }
-    if (carRes.err) {
-      const func = async () => {
-        return carRes.err;
-      };
-      predictionQueries.push(func());
-    }
-  }
+  const queries = req.body.map(getPredictionForCar);
 
   const res_data = [];
-  for (let pred of predictionQueries) {
-    res_data.push(await pred);
+  for (let query of queries) {
+    res_data.push(await query);
   }
 
   res.status(200).json(res_data);
 });
+
+async function getPredictionForCar(id) {
+  const carRes = await Cars.searchById(id)
+    .then((car) => {
+      if (car) {
+        return { ok: car };
+      } else {
+        return {
+          err: { error: "Could not find car with id", id, status: 404 },
+        };
+      }
+    })
+    .catch((err) => {
+      return { err: { id, error: err, status: 500 } };
+    });
+
+  if (carRes.ok) {
+    const car = carRes.ok;
+    const prediction = await axios
+      .post(
+        `${API}/carbon_emissions2?make=${car.make}&model=${car.model}&year=${car.year}`
+      )
+      .then((carbon_emissions_prediction) => {
+        return {
+          id: car.id,
+          make: car.make,
+          model: car.model,
+          year: car.year,
+          predicted_carbon_emissions:
+            carbon_emissions_prediction.data.predicted_co2_sql,
+          status: 200,
+        };
+      })
+      .catch((err) => {
+        console.log(err);
+        return { id: car.id, message: "Failed to get prediction", status: 500 };
+      });
+    return prediction;
+  } else if (carRes.err) {
+    return carRes.err;
+  }
+}
 
 module.exports = router;
