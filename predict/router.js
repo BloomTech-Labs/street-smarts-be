@@ -5,27 +5,15 @@ const Cars = require("../cars/model");
 
 const router = express.Router();
 
+
 const API =
   "http://streetsmarts-ds-labs24.eba-dsb2aeqx.us-east-1.elasticbeanstalk.com";
 
 //POST /api/predict/carbon_emissions
-router.post("/carbon_emissions", async (req, res) => {
-  if (!req.query.car) {
-    res.status(400).json({
-      message: "car query parameter must be defined"
-    });
-    return;
-  }
-  const id = req.query.car;
+router.post("/carbon_emissions", getSinglePrediction("carbon_emissions2"));
 
-  const predictionRes = await getPredictionForCar(id);
-  if (predictionRes.ok) {
-    delete predictionRes.ok.status;
-    res.status(200).json(predictionRes.ok);
-  } else {
-    res.status(predictionRes.err.status).json(predictionRes.err);
-  }
-});
+//POST /api/predict/carbon_emissions
+router.post("/price", getSinglePrediction("price"));
 
 //POST /api/predict/carbon_emissions
 router.post("/carbon_emissions2", async (req, res) => {
@@ -42,7 +30,7 @@ router.post("/carbon_emissions2", async (req, res) => {
     });
     return;
   }
-  const queries = req.body.map(getPredictionForCar);
+  const queries = req.body.map(id => getPredictionForCar("carbon_emissions2", id));
 
   const res_data = [];
   for (let query of queries) {
@@ -57,7 +45,27 @@ router.post("/carbon_emissions2", async (req, res) => {
   res.status(200).json(res_data);
 });
 
-async function getPredictionForCar(id) {
+function getSinglePrediction(endpoint) {
+  return async function (req, res) {
+    if (!req.query.car) {
+      res.status(400).json({
+        message: "car query parameter must be defined"
+      });
+      return;
+    }
+    const id = req.query.car;
+
+    const predictionRes = await getPredictionForCar(endpoint, id);
+    if (predictionRes.ok) {
+      delete predictionRes.ok.status;
+      res.status(200).json(predictionRes.ok);
+    } else {
+      res.status(predictionRes.err.status).json(predictionRes.err);
+    }
+  }
+}
+
+async function getPredictionForCar(endpoint, id) {
   const carRes = await Cars.searchById(id)
     .then((car) => {
       if (car) {
@@ -88,16 +96,17 @@ async function getPredictionForCar(id) {
     const car = carRes.ok;
     const prediction = await axios
       .post(
-        `${API}/carbon_emissions2?make=${car.make}&model=${car.model}&year=${car.year}`
+        `${API}/${endpoint}?make=${car.make}&model=${car.model}&year=${car.year}`
       )
-      .then((carbon_emissions_prediction) => {
+      .then((prediction) => {
         return {
           ok: {
             id: car.id,
             make: car.make,
             model: car.model,
             year: car.year,
-            predicted_carbon_emissions: carbon_emissions_prediction.data.predicted_co2_sql,
+            predicted_carbon_emissions: prediction.data.predicted_co2_sql,
+            predicted_price: prediction.data.predicted_price,
             status: 200,
           }
         };
