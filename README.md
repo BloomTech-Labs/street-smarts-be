@@ -77,6 +77,14 @@ The GET `/api/year` endpoint supports the following query parameters:
 | `?make=`  | Filters the list of years by provided brand    |
 | `?model=` | Filters the list of years by the provided model |
 
+#### Prediction Endpoints
+
+| Method | Endpoint                            | Description                             |
+| ------ | ----------------------------------- | --------------------------------------- |
+| POST   | `/api/predict/carbon_emissions/:id` | Returns an array of cars, limited to 20 |
+| POST   | `/api/predict/carbon_emissions2`    | Returns an array of cars, limited to 20 |
+| POST   | `/api/predict/price/:id`            | Returns a car with a specific ID        |
+
 # Data Model
 
 See `epa_vehicles_schema.txt`.

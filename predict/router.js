@@ -10,10 +10,10 @@ const API =
   "http://streetsmarts-ds-labs24.eba-dsb2aeqx.us-east-1.elasticbeanstalk.com";
 
 //POST /api/predict/carbon_emissions
-router.post("/carbon_emissions", getSinglePrediction("carbon_emissions2"));
+router.post("/carbon_emissions/:id", getSinglePrediction("carbon_emissions2"));
 
 //POST /api/predict/carbon_emissions
-router.post("/price", getSinglePrediction("price"));
+router.post("/price/:id", getSinglePrediction("price"));
 
 //POST /api/predict/carbon_emissions
 router.post("/carbon_emissions2", async (req, res) => {
@@ -47,13 +47,7 @@ router.post("/carbon_emissions2", async (req, res) => {
 
 function getSinglePrediction(endpoint) {
   return async function (req, res) {
-    if (!req.query.car) {
-      res.status(400).json({
-        message: "car query parameter must be defined"
-      });
-      return;
-    }
-    const id = req.query.car;
+    const { id } = req.params;
 
     const predictionRes = await getPredictionForCar(endpoint, id);
     if (predictionRes.ok) {
