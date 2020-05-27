@@ -3,12 +3,14 @@ const cors = require("cors");
 
 const Cars = require("./cars/model");
 const carsRouter = require("./cars/router");
+const predictRouter = require("./predict/router");
 const server = express();
 
 server.use(express.json());
 server.use(cors());
 
 server.use("/api/cars", carsRouter);
+server.use("/api/predict", predictRouter);
 
 server.get("/api/make", getQueryParameters, (req, res) => {
   Cars.getMake(req.queryParams)
