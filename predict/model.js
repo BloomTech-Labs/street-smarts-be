@@ -6,8 +6,7 @@ module.exports = {
   getSinglePrediction,
 };
 
-const API =
-  "http://streetsmarts-ds-labs24.eba-dsb2aeqx.us-east-1.elasticbeanstalk.com";
+const API = "http://data.streetsmarts.online";
 
 async function getPredictionForCar(endpoint, id) {
   const carRes = await getCarResultById(id);
