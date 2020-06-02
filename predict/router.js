@@ -7,9 +7,6 @@ const { getPredictionForCar, getSinglePrediction } = require('./model');
 router.post("/carbon_emissions/:id", getSinglePrediction("carbon_emissions2"));
 
 //POST /api/predict/carbon_emissions
-router.post("/price/:id", getSinglePrediction("price"));
-
-//POST /api/predict/carbon_emissions
 router.post("/carbon_emissions2", async (req, res) => {
   if (!req.body || !Array.isArray(req.body)) {
     console.log(req.body);
@@ -39,5 +36,8 @@ router.post("/carbon_emissions2", async (req, res) => {
   res.status(200).json(res_data);
 });
 
+
+//POST /api/predict/carbon_emissions
+router.post("/:id", getSinglePrediction("predict"));
 
 module.exports = router;
