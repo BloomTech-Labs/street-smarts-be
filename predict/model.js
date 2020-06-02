@@ -54,12 +54,22 @@ function requestPrediction(endpoint, car) {
     .then((prediction) => {
       return {
         ok: {
+          // Details on the car
           id: car.id,
           make: car.make,
           model: car.model,
           year: car.year,
+
+          // Predictions for the car
           predicted_carbon_emissions: prediction.data.predicted_co2_sql,
-          predicted_price: prediction.data.predicted_price,
+          predicted_price: prediction.data.car_price_prediction,
+          fuel_cost: prediction.data.fuel_cost,
+          maintenance_cost: prediction.data.maintenance_cost,
+          five_year_cost_to_own: prediction.data.five_year_cost_to_own,
+          co2_five_year_kgs: prediction.data.co2_five_year_kgs,
+          number_of_trees_to_offset: prediction.data.number_of_trees_to_offset,
+
+          // Return status
           status: 200,
         },
       };
