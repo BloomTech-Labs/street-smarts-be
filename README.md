@@ -81,9 +81,27 @@ The GET `/api/year` endpoint supports the following query parameters:
 
 | Method | Endpoint                            | Body             | Description                                      |
 | ------ | ----------------------------------- | ---------------- | ------------------------------------------------ |
+| POST   | `/api/predict/:id`                  | None             | Returns a predictions for the car                |
 | POST   | `/api/predict/carbon_emissions/:id` | None             | Returns a prediction for CO2 generated           |
-| POST   | `/api/predict/price/:id`            | None             | Returns a prediction for the price of the car    |
 | POST   | `/api/predict/carbon_emissions2`    | Array of car ids | Returns an array of CO2 predictions, limit of 10 |
+
+Format returned from POST `/api/predict/:id`:
+
+```
+{
+  "id": 15590,
+  "make": "Acura",
+  "model": "NSX",
+  "year": 2000,
+  "predicted_price": 2873.39,
+  "fuel_cost": 12500,
+  "maintenance_cost": 5000,
+  "five_year_cost_to_own": 20373.39,
+  "co2_five_year_kgs": 37029.17,
+  "number_of_trees_to_offset": 340
+}
+
+```
 
 Format of POST `/api/predict/carbon_emissions/:id`:
 
@@ -94,18 +112,6 @@ Format of POST `/api/predict/carbon_emissions/:id`:
   "model": "X",
   "year": 2018,
   "predicted_carbon_emissions": 3213.0
-}
-```
-
-Format of POST `/api/predict/price/:id`:
-
-```
-{
-  "id": 1,
-  "make": "Tesla",
-  "model": "X",
-  "year": 2018,
-  "predicted_price": 26000
 }
 ```
 
