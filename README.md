@@ -38,13 +38,13 @@ on Heroku. Heroku has great support for Postgres.
 
 #### Car Routes
 
-| Method | Endpoint        | Access Control | Description                             |
-| ------ | --------------- | -------------- | --------------------------------------- |
-| GET    | `/api/cars`     | all cars       | Returns an array of cars, limited to 20 |
-| GET    | `/api/cars/:id` | Car by id      | Returns a car with a specific ID        |
-| GET    | `/api/year`     | Car by year    | Returns a year                          |
-| GET    | `/api/model`    | Car by model   | Returns a car by model                  |
-| GET    | `/api/make`     | Car by make    | Returns the make of the cars            |
+| Method | Endpoint        | Access Control | Description                                           |
+| ------ | --------------- | -------------- | ----------------------------------------------------- |
+| GET    | `/api/cars`     | all cars       | Returns an array of cars, limited to 20               |
+| GET    | `/api/cars/:id` | Car by id      | Returns a car with a specific ID                      |
+| GET    | `/api/year`     | Car by year    | Returns the list years in alphabetical order          |
+| GET    | `/api/model`    | Car by model   | Returns the list of model names in alphabetical order |
+| GET    | `/api/make`     | Car by make    | Returns the list of makes in alphabetical order       |
 
 #### Query Parameters
 
@@ -74,7 +74,7 @@ The GET `/api/year` endpoint supports the following query parameters:
 
 | Parameter | Description                                     |
 | --------- | ----------------------------------------------- |
-| `?make=`  | Filters the list of years by provided brand    |
+| `?make=`  | Filters the list of years by provided brand     |
 | `?model=` | Filters the list of years by the provided model |
 
 #### Prediction Endpoints
@@ -115,9 +115,11 @@ Format of POST `/api/predict/carbon_emissions/:id`:
 }
 ```
 
-`/api/predict/carbon_emissions2` must be called with a body that has an array of car ids to get predictions for. It will then return an array of predictions.
+`/api/predict/carbon_emissions2` must be called with a body that has an array of
+car ids to get predictions for. It will then return an array of predictions.
 
 Input:
+
 ```
 [1, 3123154123]
 ```
@@ -139,6 +141,7 @@ Input:
   }
 ]
 ```
+
 # Data Model
 
 See `epa_vehicles_schema.txt`.
