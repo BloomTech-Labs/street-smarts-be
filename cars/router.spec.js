@@ -1,21 +1,9 @@
 const request = require("supertest");
 const server = require("../server.js");
-
-const db = require("../data/dbconfig.js");
+const { setupExampleData, EXAMPLE_CARS } = require("../testUtils.js");
 
 describe("GET /api/cars", () => {
-  const example_car = {
-    id: 1,
-    make: "Tesla",
-    model: "X",
-    year: 2018,
-  };
-
-  beforeEach(() => {
-    return db("epa_vehicles_all")
-      .truncate()
-      .then(() => db("epa_vehicles_all").insert(example_car));
-  });
+  beforeEach(setupExampleData);
 
   it("should return json type", async () => {
     const res = await request(server).get("/api/cars");
@@ -32,7 +20,7 @@ describe("GET /api/cars", () => {
       .get("/api/cars/1")
       .then((res) => {
         expect(res.status).toBe(200);
-        expect(res.body).toEqual(example_car);
+        expect(res.body).toEqual(EXAMPLE_CARS[0]);
       });
   });
 
