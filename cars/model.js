@@ -23,13 +23,13 @@ function searchById(id) {
 }
 
 function getModel(where) {
-  return db("epa_vehicles_all").distinct("model").where(where);
+  return db("epa_vehicles_all").distinct("model").where(where).orderBy("model");
 }
 
 function getMake(where) {
-  return db("epa_vehicles_all").distinct("make").where(where);
+  return db("epa_vehicles_all").distinct("make").where(where).orderBy("make");
 }
 
 function getYears(where) {
-  return db("epa_vehicles_all").distinct("year").where(where);
+  return db("epa_vehicles_all").distinct("year").where(where).orderBy("year");
 }
