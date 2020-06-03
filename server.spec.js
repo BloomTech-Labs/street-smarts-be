@@ -49,74 +49,34 @@ const example_cars = [
   },
 ];
 
-describe("GET /api/model", function () {
-  beforeEach(() => {
-    return db("epa_vehicles_all")
-      .truncate()
-      .then(() => db("epa_vehicles_all").insert(example_cars));
-  });
+function testListEndpoint(endpoint, propName) {
+  return function () {
+    beforeEach(() => {
+      return db("epa_vehicles_all")
+        .truncate()
+        .then(() => db("epa_vehicles_all").insert(example_cars));
+    });
 
-  it("Should return status of 200 for model", (done) => {
-    request(server).get("/api/model").expect(200, done);
-  });
+    it("Should return status of 200 for model", (done) => {
+      request(server).get(endpoint).expect(200, done);
+    });
 
-  it("Should return list that is in alphabetical order", (done) => {
-    request(server)
-      .get("/api/model")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then((res) => {
-        expect(isAlphabetical(res.body.map((i) => i.model))).toBe("yes");
-        done();
-      });
-  });
-});
+    it("Should return list that is in alphabetical order", (done) => {
+      request(server)
+        .get(endpoint)
+        .expect("Content-Type", /json/)
+        .expect(200)
+        .then((res) => {
+          expect(isAlphabetical(res.body.map((i) => i[propName]))).toBe("yes");
+          done();
+        });
+    });
+  };
+}
 
-describe("GET /api/make", function () {
-  beforeEach(() => {
-    return db("epa_vehicles_all")
-      .truncate()
-      .then(() => db("epa_vehicles_all").insert(example_cars));
-  });
-
-  it("Should return status of 200 for make", (done) => {
-    request(server).get("/api/make").expect(200, done);
-  });
-
-  it("Should return list that is in alphabetical order", (done) => {
-    request(server)
-      .get("/api/make")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then((res) => {
-        expect(isAlphabetical(res.body.map((i) => i.make))).toBe("yes");
-        done();
-      });
-  });
-});
-
-describe("GET /api/year", function () {
-  beforeEach(() => {
-    return db("epa_vehicles_all")
-      .truncate()
-      .then(() => db("epa_vehicles_all").insert(example_cars));
-  });
-
-  it("Should return status of 200 for year", (done) => {
-    request(server).get("/api/year").expect(200, done);
-  });
-
-  it("Should return list that is in alphabetical order", (done) => {
-    request(server)
-      .get("/api/year")
-      .expect("Content-Type", /json/)
-      .expect(200)
-      .then((res) => {
-        expect(isAlphabetical(res.body.map((i) => i.year))).toBe("yes");
-        done();
-      });
-  });
-});
+describe("GET /api/model", testListEndpoint("/api/model", "model"));
+describe("GET /api/make", testListEndpoint("/api/make", "make"));
+describe("GET /api/year", testListEndpoint("/api/year", "year"));
 
 function isAlphabetical(array) {
   // Make sure it's an array that is longer than 1, so that we can avoid false positives
@@ -129,9 +89,9 @@ function isAlphabetical(array) {
   }
 
   // check that each item is greater than the last
-  let prev = null;
+  let prev = array.shift();
   for (let next of array) {
-    if (prev && next <= prev) {
+    if (next <= prev) {
       return `${next} is not greater than ${prev}`;
     }
     prev = next;
