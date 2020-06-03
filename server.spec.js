@@ -1,6 +1,6 @@
 const request = require("supertest");
 const server = require("./server");
-const db = require("./data/dbconfig.js");
+const {setupExampleData} = require("./testUtils.js");
 
 describe("test server.js", () => {
   it(" should set the testing environment", () => {
@@ -34,30 +34,11 @@ describe("GET /", function () {
   });
 });
 
-const example_cars = [
-  {
-    id: 1,
-    make: "Tesla",
-    model: "X",
-    year: 2018,
-  },
-  {
-    id: 2,
-    make: "Ford",
-    model: "F150",
-    year: 2017,
-  },
-];
-
 function testListEndpoint(endpoint, propName) {
   return function () {
-    beforeEach(() => {
-      return db("epa_vehicles_all")
-        .truncate()
-        .then(() => db("epa_vehicles_all").insert(example_cars));
-    });
+    beforeEach(setupExampleData);
 
-    it("Should return status of 200 for model", (done) => {
+    it("Should return status of 200", (done) => {
       request(server).get(endpoint).expect(200, done);
     });
 
