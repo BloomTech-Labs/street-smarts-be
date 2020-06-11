@@ -82,8 +82,6 @@ The GET `/api/year` endpoint supports the following query parameters:
 | Method | Endpoint                            | Body             | Description                                      |
 | ------ | ----------------------------------- | ---------------- | ------------------------------------------------ |
 | POST   | `/api/predict/:id`                  | None             | Returns a predictions for the car                |
-| POST   | `/api/predict/carbon_emissions/:id` | None             | Returns a prediction for CO2 generated           |
-| POST   | `/api/predict/carbon_emissions2`    | Array of car ids | Returns an array of CO2 predictions, limit of 10 |
 
 Format returned from POST `/api/predict/:id`:
 
@@ -101,45 +99,6 @@ Format returned from POST `/api/predict/:id`:
   "number_of_trees_to_offset": 340
 }
 
-```
-
-Format of POST `/api/predict/carbon_emissions/:id`:
-
-```
-{
-  "id": 1,
-  "make": "Tesla",
-  "model": "X",
-  "year": 2018,
-  "predicted_carbon_emissions": 3213.0
-}
-```
-
-`/api/predict/carbon_emissions2` must be called with a body that has an array of
-car ids to get predictions for. It will then return an array of predictions.
-
-Input:
-
-```
-[1, 3123154123]
-```
-
-```
-[
-  {
-    "id": 1,
-    "make": "Tesla",
-    "model": "X",
-    "year": 2018,
-    "predicted_price": 26000
-    "status": 200,
-  },
-  {
-    "id": 3123154123,
-    "error": "Could not find car with id",
-    "status": 404
-  }
-]
 ```
 
 # Data Model
