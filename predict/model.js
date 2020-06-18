@@ -69,6 +69,8 @@ function requestPrediction(endpoint, car) {
           co2_five_year_kgs: prediction.data.co2_five_year_kgs,
           number_of_trees_to_offset: prediction.data.number_of_trees_to_offset,
           list_of_imgs: prediction.data.list_of_imgs,
+          trees_burned_emoji: prediction.data.trees_burned_emoji,
+          maintenance_cost_5yr: prediction.data.maintenance_cost_5yr,
 
           // Return status
           status: 200,
